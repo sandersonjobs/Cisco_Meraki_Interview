@@ -62,7 +62,7 @@ class DnsRequest():
             if answer[0] > 0:
                 full_response = ts+","+self.server+","+response+","+str(self.query_time)
             else:
-                full_response = ts+","+self.server+","+response
+                full_response = ts+","+self.server+","+response+","
             return full_response
         except:
             sys.stderr("An error occured while processing your query response.")
