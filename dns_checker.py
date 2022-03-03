@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-from http import server
 import subprocess
 from signal import signal, SIGINT
 import datetime
