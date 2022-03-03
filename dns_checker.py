@@ -25,7 +25,8 @@ class DnsRequest():
             dig_results = stdout.decode('utf-8')
             return dig_results
         except:
-            sys.stderr("Unable to get DNS query results for {site} against {server}".format(site=site_query,server=self.server))
+            sys.stderr = "Unable to get DNS query results for {site} against {server}".format(site=site_query,server=self.server)
+            sys.exit(1)
 
     def process_results(self):
         try:
@@ -64,7 +65,8 @@ class DnsRequest():
                 full_response = ts+","+self.server+","+response+","
             return full_response
         except:
-            sys.stderr("An error occured while processing your query response.")
+            sys.stderr = "An error occured while processing your query response."
+            sys.exit(1)
 
 def get_nameservers():
         file = open(resolvconf, "r")
@@ -89,4 +91,5 @@ if __name__ == '__main__':
             print(requestor.process_results())
             time.sleep(random.randrange(1,sleep_range))
         except:
-            sys.stderr("Unable to complete DNS check against {server}.".format(server=rando_server))
+            sys.stderr = "Unable to complete DNS check against {server}.".format(server=rando_server)
+            sys.exit(1)
