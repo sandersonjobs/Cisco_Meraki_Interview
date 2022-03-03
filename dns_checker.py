@@ -9,7 +9,7 @@ import random
 import re
 
 
-resolvconf = '/Users/msanderson/Documents/platops-enrollment-automation/python/resolv.conf'
+resolvconf = '/etc/resolv.conf'
 run_once_per = 3600
 
 class DnsRequest():
@@ -64,8 +64,8 @@ class DnsRequest():
             else:
                 full_response = ts+","+self.server+","+response
             return full_response
-        except Exception as error:
-            sys.stderr = "An error occured while processing your query response."
+        except:
+            sys.stderr("An error occured while processing your query response.")
 
 def get_nameservers():
         file = open(resolvconf, "r")
@@ -89,5 +89,5 @@ if __name__ == '__main__':
             requestor = DnsRequest(rando_server)
             print(requestor.__process_results__())
             time.sleep(random.randrange(1,sleep_range))
-        except Exception as error:
+        except:
             sys.stderr("Unable to complete DNS check against {server}.".format(server=rando_server))
