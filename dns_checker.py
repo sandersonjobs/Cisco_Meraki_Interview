@@ -14,7 +14,7 @@ run_once_per = 3600
 class DnsRequest():
     def __init__(self,server):
         self.server = server
-    def __dns_query_results__(self):
+    def dns_query_result(self):
         try:
             executable = "dig"
             site_query = "meraki.com"
@@ -27,14 +27,14 @@ class DnsRequest():
         except:
             sys.stderr("Unable to get DNS query results for {site} against {server}".format(site=site_query,server=self.server))
 
-    def __process_results__(self):
+    def process_results(self):
         try:
             calendar = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Nov','Dec']
             query_time = []
             date = []
             answer = []
             month = 0
-            for i in DnsRequest.__dns_query_results__(self).splitlines():
+            for i in DnsRequest.dns_query_result(self).splitlines():
                 if re.search("Query time:", i):
                     query_time.append(i.split())
                 elif re.search("WHEN:", i):
@@ -86,7 +86,7 @@ if __name__ == '__main__':
             rando_server = random.choice(get_nameservers())
             sleep_range = ((run_once_per / get_nameservers().__len__()) / 2)
             requestor = DnsRequest(rando_server)
-            print(requestor.__process_results__())
+            print(requestor.process_results())
             time.sleep(random.randrange(1,sleep_range))
         except:
             sys.stderr("Unable to complete DNS check against {server}.".format(server=rando_server))
